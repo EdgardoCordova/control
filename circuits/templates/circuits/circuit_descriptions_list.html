@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}Circuit Descriptions {% endblock title %}
+
+{% block content %}
+
+{% include "components/header.html" with title=object.descriptions.circuit_id description="Circuit Descriptions" is_go_back=True %}
+<!---<h2>{{ obj.circuit_id }} - {{ obj.circuit_description }}</h2>--->
+
+{% if object_list %}
+    
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
+            <tr class="border">
+                <th scope="col" class="py-3 px-6">
+                    #
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Circuit ID Slug
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Circuit ID
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Cycle
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Event
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Event Duration
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Event Date
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    edit
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in object_list %}
+            <tr class="border-b dark:bg-gray-400 dark:border-gray-700 {% if not obj.is_read  %}font-bold{% endif %}">
+                <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ forloop.counter }}
+                </td>
+                <td class="py-4 px-6 font-medium text-white text-gray-900 whitespace-nowrap">
+                    {{ obj.circuit_slug }}
+                </td>
+                <td class="py-4 px-6 font-medium text-white text-gray-900 whitespace-nowrap">
+                    {{ obj.circuit_id }}
+                </td>
+                <td class="py-4 px-6 font-medium text-white text-gray-900 whitespace-nowrap">
+                    {{ obj.cycle }}
+                </td>
+                <td class="py-4 px-6 font-medium text-white text-gray-900 whitespace-nowrap">
+                    {{ obj.event }}
+                </td>
+                <td class="py-4 px-6 font-medium text-white text-gray-900 whitespace-nowrap">
+                    {{ obj.event_duration }}
+                </td>
+                <td class="py-4 px-6 font-medium text-white text-gray-900 whitespace-nowrap">
+                    {{ obj.event_date }}
+                </td>
+                <td class="py-4 px-6">
+                    {% comment %}
+                    {% include 'components/buttons/edit_button.html' with href=obj.get_absolute_url_b %}
+                    {% endcomment %}
+                    <a href="{% url 'descriptions:circuit-description-update' obj.pk %}"
+                    class="bg-sky-500 hover:bg-sky-600 text-white rounded-xl p-3"
+                    >
+                    <i class="fa-solid fa-pencil"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+    {% comment %}
+    {% if is_paginated %}
+        <div class="mt-3">
+            <ul class="inline-flex items-center -space-x-px">
+    
+                {% if page_obj.has_previous %}
+                    <li>
+                        <a {% if page_obj.has_previous %}href="?page={{ page_obj.previous_page_number }}"{% else %} href="" {% endif %} class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">                    
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        </a>
+                    </li>
+                {% endif %}
+    
+                {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li><a class="px-3 py-2 leading-tight text-gray-500 dark:text-gray-100 bg-gray-200 dark:bg-gray-700 border border-gray-300 hover:bg-white hover:text-gray-700  dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white" href="?page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li><a class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+    
+                {% if page_obj.has_next %}
+                    <li>
+                        <a {% if page_obj.has_next %}href="?page={{ page_obj.next_page_number }}"{% else %} href="" {% endif %} class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">                    
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    {% else %}
+        No descriptions registered
+    {% endif %}
+    {% endcomment %}
+<br>
+
+{% endblock content %}

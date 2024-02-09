@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% if qs %}
+<br>
+<br>
+<br>
+    <ul>
+        {% for obj in qs %}
+            <li> <a href="" {{ obj.circuit_id }} {{ obj.circuit_description }}.... ></a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    No circuits registered yet
+{% endif %}
+
+<a href="{% url 'circuits:main' %}" class="btn btn-danger">Descripciones></a>
+
+{% endblock content %}

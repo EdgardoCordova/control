@@ -1,0 +1,27 @@
+{% url 'main' as path_to_home %}
+{% url 'circuits:main' as path_to_circuits %}
+{% url 'descriptions:main' as path_to_descriptions %}
+
+
+<aside class="hidden md:block sticky bg-slate-900 h-screen text-white w-full pt-24 text-sm">
+    <ul>
+        <li class="mb-6 mx-auto">
+            <a href="" class="grid h-12 place-items-center cursor-pointer hover:text-slate-200 duration-300 text-slate-500">
+                <i class="fa-solid fa-chart-pie fa-xl"></i>
+                <p>dashboard</p>
+            </a>
+        </li>
+        <li class="mb-6 mx-auto">
+            <a href=" {{ path_to_circuits }} " class="grid h-12 place-items-center cursor-pointer hover:text-slate-200 duration-300 text-slate-500">
+                <i class="fa-solid fa-books fa-xl"></i>
+                <p>circuits</p>
+            </a>
+        </li>
+        <li class="mb-6 mx-auto">
+            <a href=" {{ path_to_descriptions }} " class="grid h-12 place-items-center cursor-pointer hover:text-slate-200 duration-300 text-slate-500">
+                <i class="fa-solid fa-books fa-xl"></i>
+                <p>descriptions</p>
+            </a>
+        </li>
+    </ul>
+</aside>

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} main de core {% endblock title %}
+
+{% block content %}
+
+    <!---
+    {% if descriptions %}
+        <ul>
+            {% for element in descriptions %}
+                <li> {{ element.circuit_slug }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No descriptions registered 
+    {% endif %}
+        -->
+    
+
+    {% if qs %}
+        
+        <ul>
+            {% for item in qs %}
+                
+                <li> 
+                    <a href="{% url 'circuits:circuit-descriptions-list' item.pk %}"
+                    >
+                    {{ item.circuit_id }} {{ item.circuit_description }}
+                    </a>
+                </li>
+                
+            {% endfor %}
+        </ul>
+    {% else %}
+        No circuits registered
+    {% endif %} 
+
+    <hr>
+    <br>
+    <br>
+
+    <a href="" class="btn btn-danger">prueba</a>
+
+
+{% endblock content %}

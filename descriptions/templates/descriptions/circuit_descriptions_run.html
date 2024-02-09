@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block scripts %}
+{% endblock scripts %}
+
+{% block title %}circuit descriptions running {% endblock title%}
+
+{% block content %}
+{% include 'components/header.html' with title='Circuits Generation Run' descriptions='Circuit Descriptions Generation' is_form_available=True icon="<i class='fa-solid fa-arrow-left'></i> " %}
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if 'info' in message.tags %}
+                {% include 'components/alert.html' with is_info=True title='Success' body=message %}
+            {% elif 'error' in message.tags %}
+                {% include 'components/alert.html' with is_info=False title='Error' body=message %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+{% endblock content %}

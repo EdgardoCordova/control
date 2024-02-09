@@ -1,0 +1,51 @@
+{% load static tailwind_tags %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en" class="{% if request.session.is_dark_mode %}dark{% endif %}">
+	<head>
+    <title></title>Main | {% block title %} {% endblock title %}
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<!-- font awesome -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		
+		<script src="{% static 'main.js' %}" defer></script>
+		{% block scripts %}
+		{% endblock scripts %}
+
+		{% tailwind_css %}
+	</head>
+
+	<body class="bg-gray-200 dark:bg-slate-900 dark dark:text-slate-500">
+		{% include 'layout/navbar.html' %}
+		<div class="grid grid-cols-12">
+			<div class="col-span-1">>
+				{% include 'layout/sidebar.html' %}
+			</div>
+			<div class="col-span-11">
+				<div class="pt-20 px-6 h-screen">
+					<a href="{% url 'change' %}" 
+					class="fixed top-[150px] right-0 p-3 rounded-l-lg
+					bg-slate-200 hover:bg-slate-300
+					dark:bg-yellow-400 hover:bg-yellow-500 text-slate-900
+					drop-shadow-md transition-all">
+
+					<i class="fa-solid 
+					{% if request.session.is_dark_mode %} 
+						fa-sun
+					{% else %}
+						fa-moon
+					{% endif %}
+					fa-xl">
+					</i>
+					</a>
+					
+					{% block content %} 
+					{% endblock content %}
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

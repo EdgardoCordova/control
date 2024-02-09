@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Descriptions List{% endblock title %}
+
+{% block content %}
+
+<h1>Descriptions List</h1>
+
+{% if qs %}
+    <ul>
+        {% for obj in qs %}
+            <li> 
+                <a href="#" 
+                >
+                {{ obj.circuit_slug }} {{ obj.circuit_id.circuit_description}}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    No descriptions registered
+{% endif %}
+
+{% endblock content %}
+
+
+
+
